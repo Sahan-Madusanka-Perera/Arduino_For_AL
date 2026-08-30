@@ -1,0 +1,189 @@
+/* ============================================================================
+   THE BENCH — design tokens
+   World: a solderless breadboard. Cool ABS plastic, a shadowed hole matrix on a
+   0.1in pitch, saturated silkscreen rails, jumper-wire colours as notation.
+   Nothing here is decorative: every colour in this file exists on a real bench.
+   ========================================================================== */
+
+:root {
+  /* ---- The pitch. Every measurement in the product descends from this. ----
+     A real breadboard is 0.1in (2.54mm) between holes. Ours is 24px, and the
+     spacing scale is exact fractions and multiples of it, so the layout and the
+     hole field are the same grid. */
+  --pitch: 24px;
+  --s-1: 4px;   /* pitch / 6 */
+  --s-2: 8px;   /* pitch / 3 */
+  --s-3: 12px;  /* pitch / 2 */
+  --s-4: 16px;  /* pitch * 2/3 */
+  --s-5: 24px;  /* pitch */
+  --s-6: 36px;  /* pitch * 1.5 */
+  --s-7: 48px;  /* pitch * 2 */
+  --s-8: 72px;  /* pitch * 3 */
+  --s-9: 96px;  /* pitch * 4 */
+  --s-10: 144px;/* pitch * 6 */
+
+  /* ---- Plastic. The board body. Cool white ABS, never cream. ---- */
+  --plastic: #eceef0;
+  --plastic-raised: #f6f7f8;
+  --plastic-sunk: #e0e3e6;
+  --plastic-edge: #cdd2d7;
+  --plastic-shadow: rgb(23 32 41 / 0.13);
+
+  /* ---- The hole. A square cavity with a nickel clip somewhere inside. ---- */
+  --hole: #b3bac1;
+  --hole-deep: #8f979f;
+  --hole-glint: #ffffff;
+  /* An unfilled slot in a progress readout. Distinct from --hole because that
+     one is a moulded cavity and may go very dark; this one has to stay
+     readable against the surface it sits on, in both themes. */
+  --hole-empty: #b7bdc2;
+
+  /* ---- Silkscreen. Printed legend ink on the plastic. ---- */
+  --ink: #16202a;
+  --ink-2: #46535f;
+  --ink-3: #5c666f;
+  --ink-faint: #818a91;
+
+  /* ---- The rails. Real silkscreen red and blue, at full strength. ---- */
+  --rail-pos: #d7342a;
+  --rail-neg: #1a4fa0;
+
+  /* ---- Jumper wire. The categorical palette. Every one is a real wire. ---- */
+  --wire-red: #d7342a;
+  --wire-orange: #ce701d;
+  --wire-yellow: #a98406;
+  --wire-green: #1f8a4c;
+  --wire-blue: #1a4fa0;
+  --wire-violet: #6c3fa8;
+  --wire-brown: #7a4a2a;
+  --wire-black: #1d2329;
+  --wire-white: #f2f4f5;
+
+  /* ---- Signal. Only two, because a digital pin has only two states. ---- */
+  --signal-high: #d7342a;   /* 5V, energised, hot */
+  --signal-low: #6f7b86;    /* 0V, at rest */
+  --signal-analog: #6c3fa8; /* a value between, not a state */
+
+  /* ---- Verdict. Never the only channel; always paired with a mark. ---- */
+  --ok: #157a45;
+  --ok-field: #e6f2ea;
+  --ok-edge: #a8ceb9;
+  --no: #b4302a;
+  --no-field: #fbeceb;
+  --no-edge: #e3b3b0;
+  --warn: #976508;
+  --warn-field: #fdf3e0;
+  --warn-edge: #e5cd97;
+  --info-field: #e8eef7;
+  --info-edge: #b3c5de;
+
+  /* ---- Component bodies ---- */
+  --resistor-body: #d8c9a3;
+  --led-lens: #d7342a;
+  --dip-body: #2b3138;
+  --pcb: #0f6d6f;         /* the Arduino's own board */
+  --pcb-pad: #d9b448;
+  /* Selection highlight on the PCB. The violet focus channel disappears
+     against the dark teal board, so the drawn Uno gets its own amber. */
+  --pcb-select: #ffd54a;
+  /* Print is pure black on white by intent, not by theme. */
+  --print-ink: #000000;
+
+  /* ---- Type ---- */
+  --font-ui: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace,
+    SFMono-Regular, Menlo, monospace;
+
+  /* ---- Depth. Plastic is thin; shadows are short and hard. ---- */
+  --lift-1: 0 1px 0 rgb(255 255 255 / 0.7) inset, 0 1px 2px var(--plastic-shadow);
+  --lift-2: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 2px 6px var(--plastic-shadow);
+  --lift-3: 0 1px 0 rgb(255 255 255 / 0.5) inset, 0 8px 24px -6px var(--plastic-shadow);
+  --sink: inset 0 2px 3px rgb(23 32 41 / 0.16);
+
+  /* ---- Radii. Moulded plastic, so small and consistent. ---- */
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 6px;
+  --r-4: 10px;
+  --r-pill: 9999px;
+
+  /* ---- Motion. A component seats decisively: it moves fast, then stops
+     dead, with no overshoot. An elastic curve here would read as bounce on a
+     content reveal, which is a different and much cheaper effect than the one
+     the metaphor wants. Current, by contrast, is instant; only the glow
+     blooms. ---- */
+  --seat: 150ms cubic-bezier(0.32, 0.72, 0, 1);
+  --settle: 220ms cubic-bezier(0.25, 1, 0.5, 1);
+  --instant: 0ms linear;
+  --bloom: 120ms ease-out;
+
+  color-scheme: light;
+}
+
+/* ---- Dark: the black ABS breadboard. A real product, not an inversion.
+   There is deliberately only ONE dark palette here. The resolved theme is
+   always written to data-theme by useTheme (and by an inline script before
+   first paint), so a prefers-color-scheme copy of this block would be a second
+   source of truth that silently drifts out of step. ---- */
+:root[data-theme='dark'] {
+  --plastic: #14171a;
+  --plastic-raised: #1c2024;
+  --plastic-sunk: #0e1113;
+  --plastic-edge: #2b3138;
+  --plastic-shadow: rgb(0 0 0 / 0.5);
+
+  --hole: #05070a;
+  --hole-deep: #000203;
+  --hole-glint: #4d5a66;
+  --hole-empty: #39424b;
+
+  --ink: #e9edf0;
+  --ink-2: #b0bac3;
+  --ink-3: #838f9a;
+  --ink-faint: #6b7885;
+
+  --rail-pos: #f26056;
+  --rail-neg: #6b9ae8;
+
+  --wire-red: #f26056;
+  --wire-orange: #f0983f;
+  --wire-yellow: #ecc32c;
+  --wire-green: #43b878;
+  --wire-blue: #6b9ae8;
+  --wire-violet: #a880e0;
+  --wire-brown: #a97551;
+  --wire-black: #454f59;
+  --wire-white: #e9edf0;
+
+  --signal-high: #f26056;
+  --signal-low: #838f9a;
+  --signal-analog: #a880e0;
+
+  --ok: #4dbd80;
+  --ok-field: #12241a;
+  --ok-edge: #2c5c40;
+  --no: #f07068;
+  --no-field: #2a1615;
+  --no-edge: #6b322e;
+  --warn: #e0ae4a;
+  --warn-field: #26200f;
+  --warn-edge: #5c4a22;
+  --info-field: #141d2a;
+  --info-edge: #2f4460;
+
+  --resistor-body: #6d6146;
+  --led-lens: #f26056;
+  --dip-body: #0a0d10;
+  --pcb: #0b4f51;
+  --pcb-pad: #a98c39;
+  --pcb-select: #ffd54a;
+  --print-ink: #000000;
+
+  --lift-1: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 1px 2px var(--plastic-shadow);
+  --lift-2: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 2px 8px var(--plastic-shadow);
+  --lift-3: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 10px 28px -6px var(--plastic-shadow);
+  --sink: inset 0 2px 4px rgb(0 0 0 / 0.6);
+
+  color-scheme: dark;
+}
