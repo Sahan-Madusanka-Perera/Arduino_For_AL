@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { AppShell } from '@/components/layout/AppShell'
 import { Spinner } from '@/components/ui'
 import { Dashboard } from '@/pages/Dashboard'
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </AppShell>
   )
 }
