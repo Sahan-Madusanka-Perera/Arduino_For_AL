@@ -250,6 +250,15 @@ export const m5: Module = {
           text: 'The infrared [[t-sensor|sensor]] **detects objects or measures distance by using infrared light.** The syllabus gives four points about it.',
         },
         {
+          id: 'b6a',
+          kind: 'figure',
+          figure: 'IrFigure',
+          caption:
+            'An IR sensor over a floor. Move it closer and further away, and switch the surface underneath it.',
+          altSummary:
+            'An infrared sensor module carries two parts side by side: an IR LED, which is the transmitter, and a photodiode, which is the receiver. The IR LED shines infrared light down onto the surface below it. A pale floor reflects most of that light back up into the photodiode, so the sensor reports that something is in front of it. A black line absorbs the infrared instead of reflecting it, so almost nothing returns and the sensor reports nothing there. The reflection also weakens as the surface gets further away, because the light spreads out over the longer round trip.',
+        },
+        {
           id: 'b7',
           kind: 'steps',
           title: 'How an IR sensor works',
@@ -308,6 +317,15 @@ export const m5: Module = {
           kind: 'prose',
           heading: 'The PIR motion sensor',
           text: 'Used to detect motion, primarily by sensing the **infrared radiation (heat)** emitted by objects in its field of view. Widely used in security systems, automatic lighting, and various other applications where motion detection is required.\n\nThe explanation the syllabus gives is worth reading carefully: **all objects emit some level of IR radiation, which increases with temperature. The PIR sensor detects the change in IR levels when a warm object, such as a human or animal, moves in front of it.**',
+        },
+        {
+          id: 'b10a',
+          kind: 'figure',
+          figure: 'PirFigure',
+          caption:
+            'A PIR watching a room. Walk the person across the field of view, then stop dragging and watch the output pin.',
+          altSummary:
+            'A PIR sensor mounted on a ceiling looks down over a cone-shaped field of view. Every object emits infrared radiation, and a warm body such as a person emits far more of it than the room behind them. As the person moves through the cone, the level of infrared reaching the sensor changes, and it is that change, not the presence of the person, that drives the output pin HIGH. When the person stops moving, the level becomes steady again and the pin falls back to LOW. A room-temperature object such as a cardboard box barely stands out from the background level, so moving it changes the reading far too little to trigger anything.',
         },
         {
           id: 'b11',
@@ -517,6 +535,15 @@ export const m5: Module = {
           ],
         },
         {
+          id: 'b1a',
+          kind: 'figure',
+          figure: 'GasFigure',
+          caption:
+            'The gas sensor, one stage at a time. Raise the amount of gas in the air and follow it through to the reading.',
+          altSummary:
+            'A gas sensor has a heated sensing surface behind a steel mesh cap. When the target gas in the air reaches that surface, a chemical reaction takes place on it. The reaction changes an electrical property of the surface: its resistance falls as the concentration of gas rises. The sensor sits in a divider with a fixed resistor, so a falling resistance means a rising voltage, and the microcontroller reads that rising voltage on an analog pin as a number from 0 to 1023. Above a chosen threshold the program sounds a buzzer.',
+        },
+        {
           id: 'b2',
           kind: 'callout',
           variant: 'exam',
@@ -680,6 +707,15 @@ export const m5: Module = {
           text: 'The syllabus states that [[t-rfid|RFID]] systems consist of two main components, and names both.',
         },
         {
+          id: 'b2a',
+          kind: 'figure',
+          figure: 'RfidFigure',
+          caption:
+            'A reader and a passive tag. Move the tag away and watch what a device with no battery can and cannot do.',
+          altSummary:
+            'An RFID system has exactly two components. The reader emits radio waves and receives signals back. The tag is a small passive device that contains a unique identifier and carries no battery of its own. Held close to the reader, the tag draws its power from the reader\u2019s radio waves, wakes up, and returns its unique identifier, which the reader displays. Moved out of range, the field is too weak to power it, so the tag stays silent and the reader gets nothing back.',
+        },
+        {
           id: 'b3',
           kind: 'steps',
           title: 'The two parts of an RFID system',
@@ -713,6 +749,21 @@ export const m5: Module = {
             { from: 'Shouting back a name', to: 'The tag returning its unique identifier' },
             { from: 'Recognising the name', to: 'Access control or inventory identification' },
           ],
+        },
+        {
+          id: 'b5a',
+          kind: 'prose',
+          heading: 'The accelerometer',
+          text: 'The accelerometer **measures the acceleration forces acting on it, which can be used to determine changes in velocity and orientation.** It does that **along three axes: X, Y and Z.**\n\nThree axes is what lets one small part answer several different questions. Held still, the only force acting on it is gravity, so the three readings tell you which way up it is. Moved suddenly, the three readings jump, and that is motion.',
+        },
+        {
+          id: 'b5b',
+          kind: 'figure',
+          figure: 'AccelFigure',
+          caption:
+            'Tilt the board on either axis and watch gravity redistribute itself across X, Y and Z.',
+          altSummary:
+            'An accelerometer measures acceleration along three axes at right angles to each other, labelled X, Y and Z. Lying flat and at rest, the whole of gravity, one g, acts along the Z axis, and X and Y read close to zero. Rolling the board onto its side moves that force onto the X axis; tipping it end over end moves it onto the Y axis. At any angle the three readings together always resolve to the same single g, which is what lets the three numbers describe the orientation of the object.',
         },
         {
           id: 'b6',
